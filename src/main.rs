@@ -31,9 +31,9 @@ fn handle_connection(mut stream: TcpStream) {
         let response = format!("HTTP/1.1 200\r\n\r\n{http_request:#?}");
         stream.write_all(response.as_bytes()).unwrap();
         return;
-    } else {
-        let response = format!("HTTP/1.1 404\r\n\r\n");
-        stream.write_all(response.as_bytes()).unwrap();
-        return;
     }
+
+    let response = format!("HTTP/1.1 404\r\n\r\n");
+    stream.write_all(response.as_bytes()).unwrap();
+    return;
 }
