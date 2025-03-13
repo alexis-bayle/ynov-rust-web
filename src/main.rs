@@ -10,7 +10,7 @@ fn main() {
         .map(|os_string| os_string.into_string().unwrap())
         .unwrap_or_else(|| DEFAULT_PORT.to_string());
 
-    let listener = TcpListener::bind(format!("127.0.0.1:{port}")).unwrap();
+    let listener = TcpListener::bind(format!("0.0.0.0:{port}")).unwrap();
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
