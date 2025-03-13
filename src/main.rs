@@ -6,7 +6,9 @@ use std::{
 
 fn main() {
     const DEFAULT_PORT: &str = "7878";
-    let port = env::var("PING_LISTEN_PORT").unwrap_or(DEFAULT_PORT.to_string());
+    let port = env::var_os("PING_LISTEN_PORT")
+        .map(|os_string| os_string.into_string().unwrap())
+        .unwrap_or_else(|| DEFAULT_PORT.to_string());
 
     let listener = TcpListener::bind(format!("127.0.0.1:{port}")).unwrap();
 
