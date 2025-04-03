@@ -1,0 +1,24 @@
+# Étape 1 : Build de l'app
+FROM rust:1.67 AS builder
+
+WORKDIR /usr/src/tp
+COPY . .
+
+RUN cargo install --path .
+
+# Étape 2
+FROM debian:buster-slim
+
+RUN groupadd -r groupExo && useradd -r -g groupExo userExo
+
+WORKDIR /app
+
+COPY --from=builder /usr/local/cargo/bin/exo .
+
+RUN chown -R userExo:groupExo /app
+
+USER userExo
+
+EXPOSE 8095
+
+CMD ["./exo"]
