@@ -27,6 +27,10 @@ fn handle_connection(mut stream: TcpStream) {
         .take_while(|line| !line.is_empty())
         .collect();
 
+    if http_request.is_empty() {
+        return;
+    }
+
     let route = http_request[0].split_whitespace().collect::<Vec<&str>>()[1];
 
     if route == "/ping" {
